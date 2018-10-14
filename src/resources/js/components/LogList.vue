@@ -195,7 +195,7 @@ export default {
                 this.callToken = CancelToken.source();
                 this.loading = true;
 
-                axios.get(`api/log/file/${this.fileName}?page=${this.currentPage}&perPage=${this.perPage}&levels=${this.activeLevelsQuery}&query=${this.query}`, { cancelToken: this.callToken.token })
+                axios.get(`${window.route_path}api/file/${this.fileName}?page=${this.currentPage}&perPage=${this.perPage}&levels=${this.activeLevelsQuery}&query=${this.query}`, { cancelToken: this.callToken.token })
                     .then(({data}) => {
                         this.loading = false;
                         this.logData = data;

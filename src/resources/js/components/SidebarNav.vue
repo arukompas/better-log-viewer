@@ -29,7 +29,7 @@ export default {
         getFiles() {
             var vm = this;
             this.loading = true;
-            axios.get(`api/log/files`)
+            axios.get(`${window.route_path}api/files`)
                 .then(({data}) => {
                     this.loading = false;
                     this.files = data;

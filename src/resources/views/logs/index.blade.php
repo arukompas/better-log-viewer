@@ -7,6 +7,9 @@
     <title>Better Log Viewer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('vendor/arukompas/better-log-viewer/css/app.css') }}" />
+    <script>
+        window.route_path = "{{ str_finish(route('better-log-viewer::log.index'), '/') }}";
+    </script>
 </head>
 <body>
     <div id="app">

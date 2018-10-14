@@ -6,7 +6,7 @@
             <i class="log-date float-right">{{ log.date }}</i>
             <p>{{ log.text }}</p>
         </div>
-        <pre class="log-stack" v-if="showStack">{{ log.stack }}</pre>
+        <pre class="log-stack p-2" v-if="showStack">{{ log.stack }}</pre>
     </div>
 </template>
 
