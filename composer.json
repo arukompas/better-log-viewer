@@ -1,0 +1,26 @@
+{
+    "name": "arukompas/better-log-viewer",
+    "description": "A speedy and clean Laravel Log viewer with pagination and search",
+    "type": "library",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Arunas Skirius",
+            "email": "arukomp@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Arukompas\\BetterLogViewer\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Arukompas\\BetterLogViewer\\BetterLogViewerProvider"
+            ]
+        }
+    }
+}

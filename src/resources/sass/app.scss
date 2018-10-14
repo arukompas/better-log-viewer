@@ -1,0 +1,87 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import '~font-awesome/css/font-awesome.css';
+
+@import "~vue-snotify/styles/material";
+
+#app {
+  margin-top: 20px;
+}
+
+.log-item.primary {
+  background: theme-color-level(primary, -12);
+  border-color: theme-color-level(primary, -12);
+}
+
+.log-item.info {
+  background: theme-color-level(info, -12);
+  border-color: theme-color-level(info, -12);
+}
+
+.log-item.danger {
+  background: theme-color-level(danger, -12);
+  border-color: theme-color-level(danger, -12);
+}
+
+.log-item.warning {
+  background: theme-color-level(warning, -12);
+  border-color: theme-color-level(warning, -12);
+}
+
+.log-item.secondary {
+  background: theme-color-level(secondary, -12);
+  border-color: theme-color-level(secondary, -12);
+}
+
+.log-item.success {
+  background: theme-color-level(success, -12);
+  border-color: theme-color-level(success, -12);
+}
+
+.log-item.primary:hover {
+  background: theme-color-level(primary, -11);
+  border-color: theme-color-level(primary, -8);
+}
+
+.log-item.info:hover {
+  background: theme-color-level(info, -11);
+  border-color: theme-color-level(info, -8);
+}
+
+.log-item.danger:hover {
+  background: theme-color-level(danger, -11);
+  border-color: theme-color-level(danger, -8);
+}
+
+.log-item.warning:hover {
+  background: theme-color-level(warning, -11);
+  border-color: theme-color-level(warning, -8);
+}
+
+.log-item.secondary:hover {
+  background: theme-color-level(secondary, -11);
+  border-color: theme-color-level(secondary, -8);
+}
+
+.log-item.success:hover {
+  background: theme-color-level(success, -11);
+  border-color: theme-color-level(success, -8);
+}
+
+.log-file.active {
+  background: theme-color-level(primary, -8);
+  border-color: theme-color-level(primary, -8);
+}
+
+.log-file:not(.active):hover {
+  background: theme-color-level(primary, -11);
+  border-color: theme-color-level(primary, -8);
+}
