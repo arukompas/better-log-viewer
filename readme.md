@@ -2,6 +2,10 @@
 
 Better Log Viewer is a Laravel package for viewing your Laravel logs in a clean and intuitive web interface.
 
+
+![Better Log Viewer](better-log-viewer.png)
+
+
 ## Installation
 
 ### 1. Require the package
