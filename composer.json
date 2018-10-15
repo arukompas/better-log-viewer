@@ -2,7 +2,7 @@
     "name": "arukompas/better-log-viewer",
     "description": "A speedy and clean Laravel Log viewer with pagination and search",
     "type": "library",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "authors": [
         {
             "name": "Arunas Skirius",
