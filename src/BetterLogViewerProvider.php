@@ -45,17 +45,23 @@ class BetterLogViewerProvider extends ServiceProvider
 
     protected function mapWebRoutes()
     {
-        Route::prefix(config('better-log-viewer.route_path', 'log-viewer'))
-            ->middleware(config('better-log-viewer.middleware', ['web']))
-            ->namespace($this->namespace)
-            ->group(__DIR__.'/routes/web.php');
+        Route::group([
+            'prefix' => config('better-log-viewer.route_path', 'log-viewer'),
+            'middleware' => config('better-log-viewer.middleware', ''),
+            'namespace' => $this->namespace,
+        ], function () {
+            require __DIR__.'/routes/web.php';
+        });
     }
 
     protected function mapApiRoutes()
     {
-        Route::prefix(str_finish(config('better-log-viewer.route_path'), '/') . 'api')
-            ->middleware(config('better-log-viewer.api_middleware', ''))
-            ->namespace($this->namespace . '\Api')
-            ->group(__DIR__.'/routes/api.php');
+        Route::group([
+            'prefix' => str_finish(config('better-log-viewer.route_path'), '/') . 'api',
+            'middleware' => config('better-log-viewer.api_middleware', ''),
+            'namespace' => $this->namespace . '\Api',
+        ], function () {
+            require __DIR__.'/routes/api.php';
+        });
     }
 }

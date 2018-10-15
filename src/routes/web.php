@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/', 'LogViewerController@index')->name('better-log-viewer::log.index');
+Route::get('/', ['as' => 'better-log-viewer::log.index', 'uses' => 'LogViewerController@index']);

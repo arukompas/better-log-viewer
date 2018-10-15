@@ -9,7 +9,7 @@ return [
     /**
      * Log Viewer route middleware
      */
-    'middleware' => ['web'],
+    'middleware' => [],
 
     /**
      * Log Viewer API middleware

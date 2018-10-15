@@ -1,4 +1,4 @@
 <?php
 
-Route::get('files', 'LogsController@index')->name('better-log-viewer::api.logs.index');
-Route::get('file/{name}', 'LogsController@show')->name('better-log-viewer::api.logs.show');
+Route::get('files', ['as' => 'better-log-viewer::api.logs.index', 'uses' => 'LogsController@index']);
+Route::get('file/{name}', ['as' => 'better-log-viewer::api.logs.show', 'uses' => 'LogsController@show']);
