@@ -15,4 +15,14 @@ return [
      * Log Viewer API middleware
      */
     'api_middleware' => [],
+
+    /**
+     * Include file patterns
+     */
+    'include_files' => ['*.log'],
+
+    /**
+     * Exclude file patterns. This will take precedence
+     */
+    'exclude_files' => [],
 ];

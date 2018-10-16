@@ -58,8 +58,15 @@ class FileLogViewerService
 
     public function getFiles($withCounts = false)
     {
-        $pattern = function_exists('config') ? config('logviewer.pattern', '*.log') : '*.log';
-        $files = glob(storage_path() . '/logs/' . $pattern);
+        $files = [];
+        foreach (config('better-log-viewer.include_files', []) as $pattern) {
+            $files = array_merge($files, glob(storage_path() . '/logs/' . $pattern));
+        }
+
+        foreach (config('better-log-viewer.exclude_files', []) as $pattern) {
+            $files = array_diff($files, glob(storage_path() . '/logs/' . $pattern));
+        }
+
         $files = array_reverse($files);
         $files = array_filter($files, 'is_file');
 

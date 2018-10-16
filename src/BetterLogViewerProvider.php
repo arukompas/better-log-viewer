@@ -25,7 +25,7 @@ class BetterLogViewerProvider extends ServiceProvider
         ], 'assets');
 
         $this->publishes([
-            __DIR__.'/config/better-log-viewer.php' => config_path('config/better-log-viewer.php'),
+            __DIR__.'/config/better-log-viewer.php' => config_path('better-log-viewer.php'),
         ], 'config');
     }
 
