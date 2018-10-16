@@ -1,9 +1,6 @@
 [![Packagist](https://img.shields.io/packagist/v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
-
 [![Packagist](https://img.shields.io/packagist/dm/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
-
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
-
 [![Laravel Version](https://img.shields.io/badge/Laravel-%3E%3D%205.0-brightgreen.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 
 
