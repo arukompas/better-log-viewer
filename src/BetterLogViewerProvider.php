@@ -4,6 +4,7 @@ namespace Arukompas\BetterLogViewer;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Arukompas\BetterLogViewer\Tools\BladeDirectives;
 
 class BetterLogViewerProvider extends ServiceProvider
 {
@@ -18,11 +19,8 @@ class BetterLogViewerProvider extends ServiceProvider
     {
         $this->mapWebRoutes();
         $this->mapApiRoutes();
-
-        $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/arukompas/better-log-viewer'),
-            __DIR__.'/../fonts' => public_path('fonts'),
-        ], 'assets');
+        $this->mapAssetRoutes();
+        $this->loadTools();
 
         $this->publishes([
             __DIR__.'/config/better-log-viewer.php' => config_path('better-log-viewer.php'),
@@ -63,5 +61,21 @@ class BetterLogViewerProvider extends ServiceProvider
         ], function () {
             require __DIR__.'/routes/api.php';
         });
+    }
+
+    protected function mapAssetRoutes()
+    {
+        Route::group([
+            'prefix' => str_finish(config('better-log-viewer.route_path', 'log-viewer'), '/') . 'assets',
+            'middleware' => config('better-log-viewer.api_middleware', ''),
+            'namespace' => $this->namespace,
+        ], function () {
+            require __DIR__.'/routes/assets.php';
+        });
+    }
+
+    protected function loadTools()
+    {
+        (new BladeDirectives)->load();
     }
 }

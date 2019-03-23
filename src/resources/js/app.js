@@ -3,10 +3,14 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 Vue.component('paginate', require('./components/Paginate.vue'));
+Vue.component('spinner', require('./components/Spinner.vue'));
 Vue.component('sidebar-nav', require('./components/SidebarNav.vue'));
 Vue.component('log-file', require('./components/LogFile.vue'));
 Vue.component('log-list', require('./components/LogList.vue'));
 Vue.component('log-item', require('./components/LogItem.vue'));
+Vue.component('app-layout', require('./components/AppLayout.vue'));
+
+Vue.component('icon-expand', require('./components/icons/IconExpand.vue'));
 
 Vue.filter('fileSize', function (size) {
     if (size > 1024 * 1024 * 1024) {

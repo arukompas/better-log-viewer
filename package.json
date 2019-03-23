@@ -20,7 +20,6 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "font-awesome": "^4.7.0",
         "vue-snotify": "^3.2.1"
     }
 }

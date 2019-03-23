@@ -57,7 +57,7 @@
 
             <div class="loader-overlay" v-show="loading">
                 <div class="loader">
-                    <i class="fa fa-spinner fa-spin"></i>
+                    <spinner size="100"></spinner>
                 </div>
             </div>
         </div>

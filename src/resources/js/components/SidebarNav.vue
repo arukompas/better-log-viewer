@@ -3,7 +3,11 @@
         <div class="mx-3 mb-4">
             <h3 class="mb-0">
                 Better Log Viewer
-                <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+                <spinner v-if="loading" class="ml-3"></spinner>
+
+                <span class="float-right" @click="toggleFullscreen" title="Toggle fullscreen mode">
+                    <icon-expand></icon-expand>
+                </span>
             </h3>
             <span class="text-muted"> by <a href="https://www.github.com/arukompas/better-log-viewer" target="_blank">@arukompas</a></span>
         </div>
@@ -38,6 +42,11 @@ export default {
                     this.loading = false;
                 });
         },
+
+        toggleFullscreen() {
+            console.log('here');
+            this.$root.event_bus.$emit('toggleFullscreen');
+        }
     }
 }
 </script>

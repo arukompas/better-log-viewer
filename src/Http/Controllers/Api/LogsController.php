@@ -21,6 +21,13 @@ class LogsController extends Controller
         $levels = explode(",", $request->query('levels', ''));
         $perPage = (int)$request->query('perPage', 10);
         $query = $request->query('query', '');
+        $counts = [];
+        foreach (array_keys($logViewer->levels_classes) as $level) {
+            $counts[$level] = [
+                'count' => 0,
+                'level_class' => $logViewer->levels_classes[$level]
+            ];
+        }
 
         if (empty($levels) || (count($levels) == 1) && $levels[0] == '') {
             $logs = [];
@@ -39,6 +46,7 @@ class LogsController extends Controller
         }
 
         return array_merge($this->paginate($logs, $perPage)->toArray(), [
+            'counts' => $counts,
             'response_time' => microtime(true) - LARAVEL_START,
             'response_peak_memory' => memory_get_peak_usage()
         ]);

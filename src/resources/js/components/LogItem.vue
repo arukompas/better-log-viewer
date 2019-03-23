@@ -58,11 +58,17 @@ export default {
 }
 
 .log-item .log-stack {
-    margin-top: 10px;
     overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    margin-top: 10px;
     max-height: 700px;
     border: 1px dotted grey;
     cursor: auto;
+    font-size: 12px;
 }
 
 .log-level {
