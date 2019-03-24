@@ -5,15 +5,15 @@ window.Vue = require('vue');
 import { directive as onClickaway } from 'vue-clickaway';
 Vue.directive('onClickaway', onClickaway);
 
-Vue.component('paginate', require('./components/Paginate.vue'));
-Vue.component('spinner', require('./components/Spinner.vue'));
-Vue.component('sidebar-nav', require('./components/SidebarNav.vue'));
-Vue.component('log-file', require('./components/LogFile.vue'));
-Vue.component('log-list', require('./components/LogList.vue'));
-Vue.component('log-item', require('./components/LogItem.vue'));
-Vue.component('app-layout', require('./components/AppLayout.vue'));
-Vue.component('btn', require('./components/Btn.vue'));
-Vue.component('dropdown', require('./components/Dropdown.vue'));
+Vue.component('paginate', require('./components/Paginate.vue').default);
+Vue.component('spinner', require('./components/Spinner.vue').default);
+Vue.component('sidebar-nav', require('./components/SidebarNav.vue').default);
+Vue.component('log-file', require('./components/LogFile.vue').default);
+Vue.component('log-list', require('./components/LogList.vue').default);
+Vue.component('log-item', require('./components/LogItem.vue').default);
+Vue.component('app-layout', require('./components/AppLayout.vue').default);
+Vue.component('btn', require('./components/Btn.vue').default);
+Vue.component('dropdown', require('./components/Dropdown.vue').default);
 
 Vue.filter('fileSize', function (size) {
     if (size > 1024 * 1024 * 1024) {
