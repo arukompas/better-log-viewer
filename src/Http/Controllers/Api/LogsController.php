@@ -52,6 +52,28 @@ class LogsController extends Controller
         ]);
     }
 
+    public function download($name, FileLogViewerService $logViewer)
+    {
+        $file = $logViewer->getFile($name);
+
+        if ($file && app('files')->exists($file['path'])) {
+            return response()->download($file['path']);
+        }
+
+        abort(404);
+    }
+
+    public function destroy($name, FileLogViewerService $logViewer)
+    {
+        $file = $logViewer->getFile($name);
+
+        if ($file && app('files')->exists($file['path'])) {
+            app('files')->delete($file['path']);
+        }
+
+        return response(['success' => true], 200);
+    }
+
     /**
      * Paginate a collection of items
      *
@@ -62,7 +84,7 @@ class LogsController extends Controller
      *
      * @return LengthAwarePaginator
      */
-    public function paginate($items, $perPage = 10, $page = null, $options = [])
+    protected function paginate($items, $perPage = 10, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);

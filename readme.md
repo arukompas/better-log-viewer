@@ -28,16 +28,11 @@ Add the service provider to your `config/app.php` configuration's `'providers'` 
 Arukompas\BetterLogViewer\BetterLogViewerProvider::class,
 ```
 
-### 3. Publish the config and assets
+### 3. Publish the config
 
 You can publish the config using this artisan command:
 ```
 php artisan vendor:publish --tag=config
-```
-
-You should also publish the package's JS and CSS assets:
-```
-php artisan vendor:publish --tag=assets
 ```
 
 ### 4. Visit `<your-app-url>/log-viewer`

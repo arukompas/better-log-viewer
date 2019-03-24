@@ -39,17 +39,35 @@ export default {
 
 <style lang="scss">
 .log-item {
-    background: white;
-    padding: 7px 15px;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    margin: 5px 0px;
-    transition: all 0.2s ease;
+    @apply .border .border-transparent .bg-white .mb-3 .p-3 .rounded;
 }
 
 .log-item:hover {
-    border-color: grey;
-    cursor: pointer;
+    @apply .cursor-pointer .shadow .border-grey;
+}
+
+.log-item.info {
+    @apply .bg-blue-lightest;
+}
+
+.log-item.info:hover {
+    @apply .border-blue-lighter;
+}
+
+.log-item.warning {
+    @apply .bg-orange-lightest;
+}
+
+.log-item.warning:hover {
+    @apply .border-orange-lighter;
+}
+
+.log-item.danger {
+    @apply .bg-red-lightest;
+}
+
+.log-item.danger:hover {
+    @apply .border-red-lighter;
 }
 
 .log-item p {

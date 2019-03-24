@@ -1,54 +1,66 @@
 <template>
-    <div class="log-list">
-        <div class="row" v-if="logData && file">
-            <div class="col-auto">
-                <p class="text-right text-muted">
-                    <small>
-                        <span class="mr-3">Response Time: <strong>{{ logData && logData.response_time ? logData.response_time.toFixed(3) * 1000 : 'NULL' }} ms</strong></span> |
-                        <span class="ml-3">Peak Memory: <strong>{{ logData && logData.response_peak_memory ? logData.response_peak_memory : 'NULL' | fileSize }}</strong></span>
-                    </small>
-                </p>
-            </div>
-        </div>
-        <div class="row" v-if="file">
-            <div class="col-md-6">
-                <button v-for="(count, key) in levelCounts" :key="key" v-if="count.count" @click="toggleLevel(key)" class="btn btn-sm m-1" :class="buttonClasses(key)">{{ key }}: <strong>{{ count.count }}</strong></button>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <input type="text" v-model="query" class="form-control" placeholder="Search...">
+    <div class="log-list py-5 h-full flex flex-col">
+        <div>
+            <div class="row" v-if="logData && file">
+                <div class="col-auto">
+                    <p class="text-right text-muted">
+                        <small>
+                            <span class="mr-3">Response Time: <strong>{{ logData && logData.response_time ? logData.response_time.toFixed(3) * 1000 : 'NULL' }} ms</strong></span> |
+                            <span class="ml-3">Peak Memory: <strong>{{ logData && logData.response_peak_memory ? logData.response_peak_memory : 'NULL' | fileSize }}</strong></span>
+                        </small>
+                    </p>
                 </div>
             </div>
-        </div>
-
-        <div class="row mb-3 mt-4" v-if="file">
-            <div class="col-md-9">
-                <nav>
-                    <paginate 
-                        v-model="currentPage"
-                        v-if="pages"
-                        :page-count="pages"
-                        :click-handler="getLogs"
-                        :firstLastButton="true"
-                        :prev-text="'Prev'"
-                        :next-text="'Next'"
-                        :container-class="'pagination'"
-                        :page-class="'page-item'"
-                        :page-link-class="'page-link'">
-                    </paginate>
-                </nav>
+            <div class="flex justify-between my-3" v-if="file">
+                <div class="flex-1">
+                    <btn v-for="(count, key) in levelCounts" 
+                            :key="key" 
+                            v-if="count.count" 
+                            @click="toggleLevel(key)" 
+                            class="m-1"
+                            :active="levelActive[key]"
+                            :type="count.level_class">
+                        {{ key }}: <strong>{{ count.count }}</strong>
+                    </btn>
+                </div>
+                <div class="flex-1">
+                    <div class="width-full">
+                        <input type="text" v-model="query" class="p-2 rounded shadow" style="width: 100%;" placeholder="Search...">
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select v-model="perPage" class="form-control">
+            <div class="flex justify-between mb-4 mt-5" v-if="file">
+                <div>
+                    <nav>
+                        <paginate 
+                            v-model="currentPage"
+                            v-if="pages"
+                            :page-count="pages"
+                            :click-handler="getLogs"
+                            :firstLastButton="true"
+                            :prev-text="'Prev'"
+                            :next-text="'Next'"
+                            container-class="inline-flex list-reset bg-white shadow text-blue rounded w-auto font-sans"
+                            :page-class="'block hover:text-white hover:bg-blue border-r border-grey-light px-3 py-2'"
+                            active-class="text-white bg-blue border-r border-blue"
+                            :page-link-class="'page-link'">
+                        </paginate>
+                    </nav>
+                </div>
+
+                <div class="relative">
+                    <select v-model="perPage" class="block shadow appearance-none w-full border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded leading-tight focus:outline-none bg-white focus:border-grey">
                         <option v-for="results in [10, 15, 20, 30, 50, 100]" :key="results" :value="results">{{ results }} per page</option>
                     </select>
+                    <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="log-item-container">
+        <div class="log-item-container overflow-y-scroll">
             <div v-if="logs && logCount > 0">
                 <log-item :log="log" v-for="(log, index) in logs" :key="index"></log-item>
             </div>
@@ -62,29 +74,33 @@
             </div>
         </div>
 
-        <div class="row mb-4 mt-3" v-if="file">
-            <div class="col-md-9">
-                <nav>
-                    <paginate 
-                        v-model="currentPage"
-                        v-if="pages"
-                        :page-count="pages"
-                        :click-handler="getLogs"
-                        :firstLastButton="true"
-                        :prev-text="'Prev'"
-                        :next-text="'Next'"
-                        :container-class="'pagination'"
-                        :page-class="'page-item'"
-                        :page-link-class="'page-link'">
-                    </paginate>
-                </nav>
-            </div>
+        <div>
+            <div class="flex justify-between mt-5" v-if="file">
+                <div>
+                    <nav>
+                        <paginate 
+                            v-model="currentPage"
+                            v-if="pages"
+                            :page-count="pages"
+                            :click-handler="getLogs"
+                            :firstLastButton="true"
+                            :prev-text="'Prev'"
+                            :next-text="'Next'"
+                            container-class="inline-flex list-reset bg-white shadow text-blue rounded w-auto font-sans"
+                            :page-class="'block hover:text-white hover:bg-blue border-r border-grey-light px-3 py-2'"
+                            active-class="text-white bg-blue border-r border-blue"
+                            :page-link-class="'page-link'">
+                        </paginate>
+                    </nav>
+                </div>
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select v-model="perPage" class="form-control">
+                <div class="relative">
+                    <select v-model="perPage" class="block shadow appearance-none w-full border border-grey-lighter text-grey-darker py-2 px-4 pr-8 rounded leading-tight focus:outline-none bg-white focus:border-grey">
                         <option v-for="results in [10, 15, 20, 30, 50, 100]" :key="results" :value="results">{{ results }} per page</option>
                     </select>
+                    <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,6 +139,13 @@ export default {
         this.$root.event_bus.$on('file-changed', file => {
             this.file = file;
         });
+
+        this.$root.event_bus.$on('file-deleted', file => {
+            if (this.file.name == file.name) {
+                this.file = null;
+                this.logData = {};
+            }
+        })
     },
 
     watch: {
@@ -212,14 +235,6 @@ export default {
             }
         }, 150),
 
-        buttonClasses(level) {
-            if (this.levelActive[level]) {
-                return `btn-${this.levelCounts[level].level_class}`;
-            } else {
-                return `btn-outline-${this.levelCounts[level].level_class}`;
-            }
-        },
-
         toggleLevel(level) {
             this.levelActive[level] = !this.levelActive[level];
             this.getLogs();
@@ -229,12 +244,6 @@ export default {
 </script>
 
 <style>
-.log-list {
-    position: relative;
-    margin-top: 20px;
-    width: 100%;
-    min-height: 300px;
-}
 
 .loader-overlay {
     border-radius: 5px;

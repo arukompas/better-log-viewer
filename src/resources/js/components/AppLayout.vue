@@ -1,10 +1,10 @@
 <template>
-    <div :class="{'container': !fullscreen, 'container-fluid': fullscreen}">
-        <div class="row">
-            <div :class="{'col-lg-4 col-md-5 col-sm-6 col-xs-12': !fullscreen, 'col-lg-3 col-md-4 col-sm-6 col-xs-12': fullscreen}">
+    <div :class="{'container mx-auto': !fullscreen, 'px-5': fullscreen}">
+        <div class="flex max-h-screen">
+            <div class="flex-no-shrink max-h-screen">
                 <sidebar-nav></sidebar-nav>
             </div>
-            <div :class="{'col-lg-8 col-md-7 col-sm-6 col-xs-12': !fullscreen, 'col-lg-9 col-md-8 col-sm-6 col-xs-12': fullscreen}">
+            <div class="flex-auto max-h-screen">
                 <log-list></log-list>
             </div>
         </div>

@@ -1,7 +1,22 @@
 <template>
-    <div class="log-file p-2 m-2" @click="open" :class="{'active': active}">
-        <span class="log-file-name">{{ file.name }}</span>
-        <small class="float-right text-muted">{{ file.size | fileSize }}</small>
+    <div class="log-file rounded p-3 m-2 hover:shadow-md flex justify-between items-center" @click="open" :class="{'bg-blue-light text-white': active, 'bg-white': !active}">
+        <span class="no-underline log-file-name">{{ file.name }}</span>
+        <div class="float-right ml-5 flex items-center">
+            <small class="mr-3 text-grey-dark" :class="{'text-grey-lighter': active}">{{ file.size | fileSize }}</small>
+            <dropdown>
+                <div slot="link">
+                    <i class="fa fa-ellipsis-v text-grey pl-2 pr-1" :class="{'text-grey-lighter': active}"></i>
+                </div>
+                <div slot="dropdown" class="bg-white shadow rounded border overflow-hidden">
+                    <a :href="downloadLink" download class="no-underline block px-4 py-3 border-b text-grey-darkest bg-white hover:text-white hover:bg-blue whitespace-no-wrap hover:cursor-pointer">
+                        <i class="fa fa-download mr-2 text-grey"></i> Download
+                    </a>
+                    <a href="#" @click="$emit('delete')" class="no-underline block px-4 py-3 border-b text-red-light bg-white hover:text-white hover:bg-blue whitespace-no-wrap hover:cursor-pointer">
+                        <i class="fa fa-trash mr-2 text-red-lighter"></i> Delete
+                    </a>
+                </div>
+            </dropdown>
+        </div>
     </div>
 </template>
 
@@ -30,28 +45,22 @@ export default {
         open() {
             this.$root.event_bus.$emit('file-changed', this.file);
         }
+    },
+
+    computed: {
+        downloadLink() {
+            return `${window.route_path}api/file/${this.file.name}/download`;
+        }
     }
 }
 </script>
 
 <style>
 .log-file {
-    background: white;
-    border: 1px solid white;
-    border-radius: 5px;
     transition: all 0.2s ease;
 }
 
 .log-file:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 10px rgb(193, 222, 250);
-}
-
-.log-file-name {
-    font-weight: bold;
-}
-
-.log-file-name:hover {
-    text-decoration: underline;
 }
 </style>
