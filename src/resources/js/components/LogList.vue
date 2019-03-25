@@ -3,7 +3,7 @@
         <div>
             <div class="row" v-if="logData && file">
                 <div class="col-auto">
-                    <p class="text-right text-muted">
+                    <p class="text-right text-grey-darker">
                         <small>
                             <span class="mr-3">Response Time: <strong>{{ logData && logData.response_time ? logData.response_time.toFixed(3) * 1000 : 'NULL' }} ms</strong></span> |
                             <span class="ml-3">Peak Memory: <strong>{{ logData && logData.response_peak_memory ? logData.response_peak_memory : 'NULL' | fileSize }}</strong></span>

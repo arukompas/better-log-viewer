@@ -39,11 +39,11 @@ export default {
 
 <style lang="scss">
 .log-item {
-    @apply .border .border-transparent .bg-white .mb-3 .p-3 .rounded;
+    @apply .border .border-transparent .bg-white .mb-1 .p-3 .rounded;
 }
 
 .log-item:hover {
-    @apply .cursor-pointer .shadow .border-grey;
+    @apply .cursor-pointer .border-grey;
 }
 
 .log-item.info {

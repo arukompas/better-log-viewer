@@ -14,7 +14,7 @@
         window.route_path = "{{ str_finish(route('better-log-viewer::log.index'), '/') }}";
     </script>
 </head>
-<body class="font-sans bg-grey-light max-h-screen leading-tight">
+<body class="font-sans text-sm bg-grey-light max-h-screen leading-tight">
     <div id="app">
         <app-layout></app-layout>
     </div>

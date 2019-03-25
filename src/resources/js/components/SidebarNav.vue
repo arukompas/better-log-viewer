@@ -1,13 +1,13 @@
 <template>
     <nav id="sidebar" class="flex flex-col h-full py-5 mr-5">
         <div class="mx-3 mb-4">
-            <h3 class="mb-0 font-thin">
+            <h3 class="mb-0 text-xl font-thin">
                 Better Log Viewer
                 <spinner v-if="loading" class="ml-3"></spinner>
 
                 <span class="float-right ml-5 text-grey-dark hover:text-grey-darker cursor-pointer" @click="toggleFullscreen" title="Toggle fullscreen mode">
-                    <i class="fa fa-expand-arrows-alt" v-if="!fullscreen"></i>
-                    <i class="fa fa-compress-arrows-alt" v-if="fullscreen"></i>
+                    <i class="fa fa-expand-arrows-alt text-base" v-if="!fullscreen"></i>
+                    <i class="fa fa-compress-arrows-alt text-base" v-if="fullscreen"></i>
                 </span>
             </h3>
             <span class="text-grey-darker">
