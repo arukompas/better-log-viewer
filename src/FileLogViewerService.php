@@ -56,7 +56,7 @@ class FileLogViewerService
         'failed' => 'exclamation-triangle'
     ];
 
-    public function getFiles($withCounts = false)
+    public function getFiles($withCachedCounts = false)
     {
         $files = [];
         foreach (config('better-log-viewer.include_files', []) as $pattern) {
@@ -79,27 +79,13 @@ class FileLogViewerService
                     'size' => filesize($file),
                 ];
 
-                if ($withCounts) {
+                if ($withCachedCounts) {
                     $key = $file . '::' . md5_file($file) . '::counts';
 
                     if (Cache::has($key)) {
                         $counts = Cache::get($key);
-                    } else {
-                        $counts = [];
-
-                        foreach (array_keys($this->levels_classes) as $level) {
-                            $counts[$level] = [
-                                'count' => 0,
-                                'level_class' => $this->levels_classes[$level]
-                            ];
-                        }
-
-                        $this->getLogsForFile($fileEntry, null, $counts);
-
-                        Cache::put($key, $counts, 60 * 24 * 30);    // 30 days expiry
+                        $fileEntry['counts'] = $counts;
                     }
-
-                    $fileEntry['counts'] = $counts;
                 }
 
                 $files[$k] = $fileEntry;
@@ -118,6 +104,30 @@ class FileLogViewerService
                 return $file;
             }
         }
+    }
+
+    public function getLevelCountsForFile($file)
+    {
+        $key = $file['path'] . '::' . md5_file($file['path']) . '::counts';
+
+        if (Cache::has($key)) {
+            $counts = Cache::get($key);
+        } else {
+            $counts = [];
+
+            foreach (array_keys($this->levels_classes) as $level) {
+                $counts[$level] = [
+                    'count' => 0,
+                    'level_class' => $this->levels_classes[$level]
+                ];
+            }
+
+            $this->getLogsForFile($file, null, $counts);
+
+            Cache::put($key, $counts, 60 * 24 * 30);    // 30 days expiry
+        }
+
+        return $counts;
     }
 
     public function getLogsForFile($file, $levels = null, &$count = null)

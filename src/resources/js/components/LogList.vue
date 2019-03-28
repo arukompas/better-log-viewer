@@ -11,7 +11,7 @@
                     </p>
                 </div>
             </div>
-            <div class="flex justify-between my-3" v-if="file">
+            <div class="flex justify-between my-3" v-if="file && levelCounts">
                 <div class="flex-1">
                     <btn v-for="(count, key) in levelCounts" 
                             :key="key" 
@@ -29,6 +29,8 @@
                     </div>
                 </div>
             </div>
+            
+            <h3 class="leading my-5" v-if="file && loadingLevelCounts">Loading log counts... <i class="fa fa-spin fa-spinner ml-4"></i></h3>
 
             <div class="flex justify-between mb-4 mt-5" v-if="file">
                 <div>
@@ -118,6 +120,7 @@ export default {
             perPage: 10,
             currentPage: 1,
             loading: false,
+            loadingLevelCounts: false,
             callToken: null,
             query: '',
             levelActive: {
@@ -138,6 +141,10 @@ export default {
     mounted() {
         this.$root.event_bus.$on('file-changed', file => {
             this.file = file;
+
+            if (!this.file.counts) {
+                this.loadFileLevelCounts(file);
+            }
         });
 
         this.$root.event_bus.$on('file-deleted', file => {
@@ -169,7 +176,7 @@ export default {
 
     computed: {
         levelCounts() {
-            return this.file.counts;
+            return this.file.counts ? this.file.counts : {};
         },
 
         fileName() {
@@ -187,7 +194,7 @@ export default {
         activeLevelsQuery() {
             let activeLevels = [];
             Object.keys(this.levelActive).forEach(level => {
-                if (this.levelActive[level] && this.levelCounts[level].count) {
+                if (this.levelActive[level] && this.levelCounts[level] && this.levelCounts[level].count) {
                     activeLevels.push(level);
                 }
             });
@@ -207,6 +214,10 @@ export default {
     },
 
     methods: {
+        fileLevelsUpdated(file, counts) {
+            this.$set(this.file, 'counts', counts);
+        },
+
         getLogs: debounce(function() {
             if (this.fileName) {
                 let CancelToken = axios.CancelToken;
@@ -231,6 +242,29 @@ export default {
                     }).catch(error => {
                         this.loading = false;
                         this.callToken = null;
+                    });
+            }
+        }, 150),
+
+        loadFileLevelCounts: debounce(function () {
+            if (this.fileName) {
+                let CancelToken = axios.CancelToken;
+
+                if (this.levelCallToken) {
+                    this.levelCallToken.cancel();
+                }
+
+                this.levelCallToken = CancelToken.source();
+                this.loadingLevelCounts = true;
+
+                axios.get(`${window.route_path}api/file/${this.fileName}/level-counts`)
+                    .then(({data}) => {
+                        this.loadingLevelCounts = false;
+                        this.fileLevelsUpdated(this.file, data);
+                        this.levelCallToken = null;
+                    }).catch(error => {
+                        this.loadingLevelCounts = false;
+                        this.levelCallToken = null;
                     });
             }
         }, 150),

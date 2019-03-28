@@ -74,6 +74,17 @@ class LogsController extends Controller
         return response(['success' => true], 200);
     }
 
+    public function levelCounts($name, FileLogViewerService $logViewer)
+    {
+        $file = $logViewer->getFile($name);
+
+        if ($file) {
+            return $logViewer->getLevelCountsForFile($file);
+        }
+
+        return [];
+    }
+
     /**
      * Paginate a collection of items
      *
