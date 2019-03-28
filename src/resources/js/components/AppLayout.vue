@@ -23,8 +23,8 @@ export default {
     },
 
     mounted() {
-        this.$root.event_bus.$on('toggleFullscreen', () => {
-            this.fullscreen = !this.fullscreen;
+        this.$root.event_bus.$on('toggleFullscreen', (newValue) => {
+            this.fullscreen = newValue;
         });
     }
 }

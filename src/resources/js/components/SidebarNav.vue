@@ -32,10 +32,29 @@ export default {
     },
 
     mounted() {
+        this.loadInitialSettings();
         this.getFiles();
     },
 
     methods: {
+        getSetting(key) {
+            let storageKey = `better-log-viewer::${key}`;
+            return JSON.parse(window.localStorage.getItem(storageKey));
+        },
+
+        saveSetting(key, value) {
+            let storageKey = `better-log-viewer::${key}`;
+            window.localStorage.setItem(storageKey, JSON.stringify(value));
+        },
+
+        loadInitialSettings() {
+            let fullscreen = this.getSetting('fullscreen');
+
+            if (fullscreen === true || fullscreen === false) {
+                this.fullscreen = fullscreen;
+            }
+        },
+
         getFiles() {
             var vm = this;
             this.loading = true;
@@ -51,7 +70,6 @@ export default {
 
         toggleFullscreen() {
             this.fullscreen = !this.fullscreen;
-            this.$root.event_bus.$emit('toggleFullscreen');
         },
 
         confirmFileDeletion(file) {
@@ -84,6 +102,13 @@ export default {
             this.$root.event_bus.$emit('file-deleted', file);
         }
     },
+
+    watch: {
+        fullscreen(newValue) {
+            this.$root.event_bus.$emit('toggleFullscreen', newValue);
+            this.saveSetting('fullscreen', newValue);
+        }
+    }
 }
 </script>
 
