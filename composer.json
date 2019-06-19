@@ -3,7 +3,7 @@
     "description": "A speedy and clean Laravel Log viewer with pagination and search",
     "type": "library",
     "version": "0.2.6",
-    "license": "mit",
+    "license": "MIT",
     "authors": [
         {
             "name": "Arunas Skirius",
