@@ -156,9 +156,11 @@ export default {
     },
 
     watch: {
-        file() {
-            this.currentPage = 1;
-            this.getLogs();
+        'file.name': {
+            handler() {
+                this.currentPage = 1;
+                this.getLogs();
+            }
         },
 
         query() {
@@ -194,7 +196,7 @@ export default {
         activeLevelsQuery() {
             let activeLevels = [];
             Object.keys(this.levelActive).forEach(level => {
-                if (this.levelActive[level] && this.levelCounts[level] && this.levelCounts[level].count) {
+                if (this.levelActive[level]) {
                     activeLevels.push(level);
                 }
             });

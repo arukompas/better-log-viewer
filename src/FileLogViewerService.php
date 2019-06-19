@@ -160,8 +160,11 @@ class FileLogViewerService
             for ($i = 0, $j = count($h); $i < $j; $i++) {
                 foreach (array_keys($this->levels_classes) as $level) {
                     if (strpos(strtolower($h[$i]), '.' . $level) || strpos(strtolower($h[$i]), $level . ':')) {
+                        $current = [];
                         preg_match($this->patterns['current_log'][0] . $level . $this->patterns['current_log'][1], $h[$i], $current);
+
                         if (!isset($current[4])) continue;
+
                         if (in_array($level, $levels)) {
                             $log[] = array(
                                 'context' => $current[3],
@@ -174,6 +177,7 @@ class FileLogViewerService
                                 'stack' => mb_convert_encoding(preg_replace("/^\n*/", '', $log_data[$i]), 'UTF-8', 'UTF-8')
                             );
                         }
+
                         if (!is_null($count) && isset($count[$level])) {
                             $count[$level]['count']++;
                         }
