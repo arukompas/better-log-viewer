@@ -36,14 +36,14 @@ export default {
     },
 
     mounted() {
-        this.$root.event_bus.$on('file-changed', file => {
+        this.$bus.$on('file-changed', file => {
             this.active = file.name == this.file.name;
         });
     },
 
     methods: {
         open() {
-            this.$root.event_bus.$emit('file-changed', this.file);
+            this.$bus.$emit('file-changed', this.file);
         }
     },
 

@@ -5,10 +5,7 @@
                 Better Log Viewer
                 <spinner v-if="loading" class="ml-3"></spinner>
 
-                <span class="float-right ml-5 text-grey-dark hover:text-grey-darker cursor-pointer" @click="toggleFullscreen" title="Toggle fullscreen mode">
-                    <i class="fa fa-expand-arrows-alt text-base" v-if="!fullscreen"></i>
-                    <i class="fa fa-compress-arrows-alt text-base" v-if="fullscreen"></i>
-                </span>
+                <settings-control></settings-control>
             </h3>
             <span class="text-grey-darker">
                 by <a href="https://www.github.com/arukompas/better-log-viewer" class="no-underline text-blue" target="_blank">@arukompas</a>
@@ -22,39 +19,21 @@
 </template>
 
 <script>
+import SettingsControl from './SettingsControl';
+
 export default {
     data() {
         return {
             files: [],
             loading: false,
-            fullscreen: false,
         }
     },
 
     mounted() {
-        this.loadInitialSettings();
         this.getFiles();
     },
 
     methods: {
-        getSetting(key) {
-            let storageKey = `better-log-viewer::${key}`;
-            return JSON.parse(window.localStorage.getItem(storageKey));
-        },
-
-        saveSetting(key, value) {
-            let storageKey = `better-log-viewer::${key}`;
-            window.localStorage.setItem(storageKey, JSON.stringify(value));
-        },
-
-        loadInitialSettings() {
-            let fullscreen = this.getSetting('fullscreen');
-
-            if (fullscreen === true || fullscreen === false) {
-                this.fullscreen = fullscreen;
-            }
-        },
-
         getFiles() {
             var vm = this;
             this.loading = true;
@@ -66,10 +45,6 @@ export default {
                 }).catch(error => {
                     this.loading = false;
                 });
-        },
-
-        toggleFullscreen() {
-            this.fullscreen = !this.fullscreen;
         },
 
         confirmFileDeletion(file) {
@@ -99,15 +74,12 @@ export default {
             let index = this.files.indexOf(file);
             this.files.splice(index, 1);
             swal(`"${file.name}" has been deleted`);
-            this.$root.event_bus.$emit('file-deleted', file);
+            this.$bus.$emit('file-deleted', file);
         }
     },
 
-    watch: {
-        fullscreen(newValue) {
-            this.$root.event_bus.$emit('toggleFullscreen', newValue);
-            this.saveSetting('fullscreen', newValue);
-        }
+    components: {
+        SettingsControl,
     }
 }
 </script>

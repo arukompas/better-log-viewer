@@ -32,10 +32,10 @@ Vue.use(Snotify);
 
 const event_bus = new Vue({});
 
+Vue.prototype.$bus = event_bus;
+
 const app = new Vue({
-    data: {
-        event_bus: event_bus
-    }
+    data: {}
 });
 
 window.axios.interceptors.response.use(function (response) {

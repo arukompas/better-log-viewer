@@ -111,35 +111,24 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import { settings, setSetting } from '../settings';
 
 export default {
     data() {
         return {
             file: null,
             logData: {},
-            perPage: 10,
+            perPage: settings.perPage,
             currentPage: 1,
             loading: false,
             loadingLevelCounts: false,
             callToken: null,
             query: '',
-            levelActive: {
-                debug: true,
-                info: true,
-                notice: true,
-                warning: true,
-                error: true,
-                critical: true,
-                alert: true,
-                emergency: true,
-                processed: true,
-                failed: true,
-            },
         }
     },
 
     mounted() {
-        this.$root.event_bus.$on('file-changed', file => {
+        this.$bus.$on('file-changed', file => {
             this.file = file;
 
             if (!this.file.counts) {
@@ -147,7 +136,7 @@ export default {
             }
         });
 
-        this.$root.event_bus.$on('file-deleted', file => {
+        this.$bus.$on('file-deleted', file => {
             if (this.file.name == file.name) {
                 this.file = null;
                 this.logData = {};
@@ -168,15 +157,18 @@ export default {
         },
 
         currentPage() {
-            this.$root.event_bus.$emit('page-changed', this.currentPage);
+            this.$bus.$emit('page-changed', this.currentPage);
         },
 
         perPage() {
+            setSetting('perPage', this.perPage);
             this.getLogs();
         }
     },
 
     computed: {
+        levelActive: () => settings.levelActive,
+
         levelCounts() {
             return this.file.counts ? this.file.counts : {};
         },
@@ -272,7 +264,10 @@ export default {
         }, 150),
 
         toggleLevel(level) {
-            this.levelActive[level] = !this.levelActive[level];
+            setSetting('levelActive', {
+                ...this.levelActive,
+                [level]: !this.levelActive[level]
+            });
             this.getLogs();
         }
     },

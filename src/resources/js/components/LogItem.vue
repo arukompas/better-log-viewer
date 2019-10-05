@@ -6,11 +6,13 @@
             <i class="log-date float-right">{{ log.date }}</i>
             <p>{{ log.text }}</p>
         </div>
-        <pre class="log-stack p-2" v-if="showStack">{{ log.stack }}</pre>
+        <pre class="log-stack p-2" v-if="showStack">{{ filteredLogStack }}</pre>
     </div>
 </template>
 
 <script>
+import { settings } from '../settings';
+
 export default {
     props: {
         log: {
@@ -21,18 +23,45 @@ export default {
 
     data() {
         return {
-            showStack: false
+            showStack: false,
+            shorterStackTraceExcludes: window.shorter_stack_trace_excludes,
         }
     },
 
     mounted() {
-        this.$root.event_bus.$on('page-changed', page => {
+        this.$bus.$on('page-changed', page => {
             this.showStack = false;
         });
 
-        this.$root.event_bus.$on('file-changed', file => {
+        this.$bus.$on('file-changed', file => {
             this.showStack = false;
         });
+    },
+
+    computed: {
+        filteredLogStack() {
+            if (!settings.shorterStackTraces) {
+                return this.log.stack;
+            }
+
+            let lines = this.log.stack.split("\n");
+            let filteredLines = [];
+
+            lines.forEach(line => {
+                if (filteredLines.length < 2 ||
+                    ! this.shorterStackTraceExcludes.some(exclude => line.includes(exclude))
+                ) {
+                    filteredLines.push(line);
+                    return;
+                }
+
+                if (filteredLines[filteredLines.length - 1] !== '...') {
+                    filteredLines.push('...');
+                }
+            })
+
+            return filteredLines.join("\n");
+        },
     }
 }
 </script>

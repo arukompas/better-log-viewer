@@ -12,6 +12,7 @@
 
     <script>
         window.route_path = "{{ str_finish(route('better-log-viewer::log.index'), '/') }}";
+        window.shorter_stack_trace_excludes = {!! json_encode(config('better-log-viewer.shorter_stack_trace_excludes')) !!};
     </script>
 </head>
 <body class="font-sans text-sm bg-grey-light max-h-screen leading-tight">
