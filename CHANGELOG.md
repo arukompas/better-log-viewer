@@ -1,3 +1,7 @@
+## 0.3.1
+
+(fix) NPM dependency security fixes.
+
 ## 0.3.0
 
 (new) You can now filter out some parts of the stack trace for easier lookup.

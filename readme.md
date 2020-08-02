@@ -28,7 +28,7 @@ Add the service provider to your `config/app.php` configuration's `'providers'` 
 Arukompas\BetterLogViewer\BetterLogViewerProvider::class,
 ```
 
-### 3. Publish the config
+### 3. (optional) Publish the config
 
 You can publish the config using this artisan command:
 ```
