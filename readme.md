@@ -1,12 +1,14 @@
 [![Packagist](https://img.shields.io/packagist/v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 [![Packagist](https://img.shields.io/packagist/dm/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
-[![Laravel Version](https://img.shields.io/badge/Laravel-%3E%3D%205.0-brightgreen.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
+[![Laravel Version](https://img.shields.io/badge/Laravel-5.x,%206.x-brightgreen.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 
 
 # Better Log Viewer
 
 Better Log Viewer is a Laravel package for viewing your Laravel logs in a clean and intuitive web interface.
+
+**Supports all Laravel 5 and Laravel 6 versions.**
 
 
 ![Better Log Viewer](better-log-viewer.png)

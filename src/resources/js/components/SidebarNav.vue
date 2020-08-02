@@ -12,7 +12,7 @@
             </span>
         </div>
 
-        <div class="overflow-y-scroll">
+        <div class="overflow-y-scroll sidebar-contents">
             <log-file v-for="file in files" :key="file.name" :file="file" @delete="confirmFileDeletion(file)"></log-file>
         </div>
     </nav>
@@ -94,5 +94,8 @@ export default {
 }
 .log-file p {
     margin: 0px;
+}
+.sidebar-contents {
+    padding-bottom: 80px;
 }
 </style>

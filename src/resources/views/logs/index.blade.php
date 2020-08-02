@@ -11,7 +11,7 @@
     @better_log_viewer_css
 
     <script>
-        window.route_path = "{{ str_finish(route('better-log-viewer::log.index'), '/') }}";
+        window.route_path = "{{ Str::finish(route('better-log-viewer::log.index'), '/') }}";
         window.shorter_stack_trace_excludes = {!! json_encode(config('better-log-viewer.shorter_stack_trace_excludes')) !!};
     </script>
 </head>

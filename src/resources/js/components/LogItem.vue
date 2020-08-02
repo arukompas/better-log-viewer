@@ -1,6 +1,6 @@
 <template>
-    <div class="log-item" :class="[log.level_class]">
-        <div @click="showStack = !showStack">
+    <div class="log-item" :class="[log.level_class]" @click="showStack = !showStack">
+        <div>
             <span class="log-level" :class="'text-' + log.level_class">{{ log.level }}</span>
             <span class="log-context text-muted">@ {{ log.context }}</span>
             <i class="log-date float-right">{{ log.date }}</i>

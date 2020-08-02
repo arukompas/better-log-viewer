@@ -1,3 +1,7 @@
+## 0.4.0
+
+(new) Support for Laravel 6.x.
+
 ## 0.3.1
 
 (fix) NPM dependency security fixes.

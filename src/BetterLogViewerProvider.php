@@ -2,8 +2,9 @@
 
 namespace Arukompas\BetterLogViewer;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
 use Arukompas\BetterLogViewer\Tools\BladeDirectives;
 
 class BetterLogViewerProvider extends ServiceProvider
@@ -55,7 +56,7 @@ class BetterLogViewerProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::group([
-            'prefix' => str_finish(config('better-log-viewer.route_path'), '/') . 'api',
+            'prefix' => Str::finish(config('better-log-viewer.route_path'), '/') . 'api',
             'middleware' => config('better-log-viewer.api_middleware', ''),
             'namespace' => $this->namespace . '\Api',
         ], function () {
@@ -66,7 +67,7 @@ class BetterLogViewerProvider extends ServiceProvider
     protected function mapAssetRoutes()
     {
         Route::group([
-            'prefix' => str_finish(config('better-log-viewer.route_path', 'log-viewer'), '/') . 'assets',
+            'prefix' => Str::finish(config('better-log-viewer.route_path', 'log-viewer'), '/') . 'assets',
             'middleware' => config('better-log-viewer.api_middleware', ''),
             'namespace' => $this->namespace,
         ], function () {
