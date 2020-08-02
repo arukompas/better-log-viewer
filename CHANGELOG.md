@@ -1,3 +1,7 @@
+## 0.5.0
+
+(new) Support for Laravel 7.x.
+
 ## 0.4.0
 
 (new) Support for Laravel 6.x.
