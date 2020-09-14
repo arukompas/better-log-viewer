@@ -1,3 +1,7 @@
+## 0.5.1
+
+(fix) Clicking on the stack trace no longer collapses the entry.
+
 ## 0.5.0
 
 (new) Support for Laravel 7.x.

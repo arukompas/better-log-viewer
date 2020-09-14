@@ -1,6 +1,6 @@
 <template>
-    <div class="log-item" :class="[log.level_class]" @click="showStack = !showStack">
-        <div>
+    <div class="log-item" :class="[log.level_class]">
+        <div @click="showStack = !showStack">
             <span class="log-level" :class="'text-' + log.level_class">{{ log.level }}</span>
             <span class="log-context text-muted">@ {{ log.context }}</span>
             <i class="log-date float-right">{{ log.date }}</i>
@@ -72,7 +72,11 @@ export default {
 }
 
 .log-item:hover {
-    @apply .cursor-pointer .border-grey;
+    @apply .border-grey;
+}
+
+.log-item:hover > div {
+    @apply .cursor-pointer;
 }
 
 .log-item.info {
