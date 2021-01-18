@@ -1,3 +1,8 @@
+## 0.5.2
+
+(fix) Missing namespace on index page
+(fix) NPM dependency security fixes
+
 ## 0.5.1
 
 (fix) Clicking on the stack trace no longer collapses the entry.
