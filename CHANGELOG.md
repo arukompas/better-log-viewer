@@ -1,3 +1,7 @@
+## 0.6.0
+
+(new) Support for Laravel 8.x.
+
 ## 0.5.2
 
 (fix) Missing namespace on index page
