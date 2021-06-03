@@ -2,6 +2,7 @@
 
 namespace Arukompas\BetterLogViewer;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class FileLogViewerService
@@ -17,9 +18,9 @@ class FileLogViewerService
      * @var array
      */
     private $patterns = [
-        'logs' => '/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}([\+-]\d{4})?\].*/',
+        'logs' => '/\[\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(\.\d{6}[\+-]\d\d:\d\d)?\].*/',
         'current_log' => [
-            '/^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}([\+-]\d{4})?)\](?:.*?(\w+)\.|.*?)',
+            '/^\[(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(\.\d{6}[\+-]\d\d:\d\d)?)\](?:.*?(\w+)\.|.*?)',
             ': (.*?)( in .*?:[0-9]+)?$/i'
         ],
         'files' => '/\{.*?\,.*?\}/i',
@@ -156,6 +157,8 @@ class FileLogViewerService
             array_shift($log_data);
         }
 
+        $timezone = config('app.timezone', 'UTC');
+
         foreach ($headings as $h) {
             for ($i = 0, $j = count($h); $i < $j; $i++) {
                 foreach (array_keys($this->levels_classes) as $level) {
@@ -171,7 +174,7 @@ class FileLogViewerService
                                 'level' => $level,
                                 'level_class' => $this->levels_classes[$level],
                                 'level_img' => $this->levels_imgs[$level],
-                                'date' => $current[1],
+                                'date' => Carbon::parse($current[1])->tz($timezone)->toDateTimeString(),
                                 'text' => mb_convert_encoding($current[4], 'UTF-8', 'UTF-8'),
                                 'in_file' => isset($current[5]) ? $current[5] : null,
                                 'stack' => mb_convert_encoding(preg_replace("/^\n*/", '', $log_data[$i]), 'UTF-8', 'UTF-8')

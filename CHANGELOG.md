@@ -1,3 +1,8 @@
+## 0.7.0
+
+(fix) Fix an issue with Laravel 7/8 generated logs not being parsed correctly
+(fix) NPM dependency security fixes
+
 ## 0.6.0
 
 (new) Support for Laravel 8.x.
