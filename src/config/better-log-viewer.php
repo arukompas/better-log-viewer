@@ -33,5 +33,13 @@ return [
         '/vendor/symfony/',
         '/vendor/laravel/framework/',
         '/vendor/barryvdh/laravel-debugbar/'
-    ]
+    ],
+
+    /**
+     * Timezone for which the log entries will be displayed in
+     * 
+     * You can change this value to any valid timezone string if you want to display logs 
+     * in a different timezone then that of the applciation. Eg: 'timezone' => 'Europe/Copenhagen'
+     */
+    'timezone' => config('app.timezone', 'UTC'),
 ];

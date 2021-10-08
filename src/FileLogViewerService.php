@@ -157,11 +157,7 @@ class FileLogViewerService
             array_shift($log_data);
         }
 
-	if (config('app.default_timezone')) {
-            $timezone = config('app.default_timezone', 'UTC');
-        } else {
-            $timezone = config('app.timezone', 'UTC');
-        }
+	$timezone = config('better-log-viewer.timezone', 'UTC');
 
         foreach ($headings as $h) {
             for ($i = 0, $j = count($h); $i < $j; $i++) {
