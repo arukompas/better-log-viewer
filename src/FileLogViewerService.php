@@ -158,7 +158,7 @@ class FileLogViewerService
         }
 
 	if (config('app.default_timezone')) {
-            $timezone = config('app.default_timezone');
+            $timezone = config('app.default_timezone', 'UTC');
         } else {
             $timezone = config('app.timezone', 'UTC');
         }
