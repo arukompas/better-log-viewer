@@ -12,7 +12,7 @@ class FileLogViewerService
      * 
      * @var int
      */
-    const MAX_FILE_SIZE = 52428800;
+    const MAX_FILE_SIZE = 104857600;    // 100 MB
 
     /**
      * @var array

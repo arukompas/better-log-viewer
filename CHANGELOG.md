@@ -1,3 +1,9 @@
+## 0.8.0
+
+(new) Support for Laravel 9.x.
+(fix) NPM dependency security fixes
+(change) increased maximum log file size from 50 MB to 100 MB.
+
 ## 0.7.0
 
 (fix) Fix an issue with Laravel 7/8 generated logs not being parsed correctly
