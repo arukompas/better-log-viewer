@@ -1,3 +1,9 @@
+> :warning: **This package is no longer maintained.**
+> 
+> Brand new Log Viewer, written from scratch, is available at [https://github.com/opcodesio/log-viewer](https://github.com/opcodesio/log-viewer)
+
+---
+
 [![Packagist](https://img.shields.io/packagist/v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 [![Packagist](https://img.shields.io/packagist/dm/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/arukompas/better-log-viewer.svg)](https://packagist.org/packages/arukompas/better-log-viewer)
